@@ -1,8 +1,8 @@
 export interface CreatePostType {
-  Title: string;
+  title: string;
   author: string;
   content: string;
-  image: string;
+  image: File | string | null;
 }
 
 export interface getPostType extends CreatePostType {
