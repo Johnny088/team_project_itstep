@@ -21,11 +21,11 @@ export const HomePage = () => {
       setIsFormOpen(false);
     },
   });
-  const backendUrl =
-    window.location.hostname === 'localhost' ||
-    window.location.hostname === '127.0.0.1'
-      ? 'http://127.0.0.1:8000'
-      : window.location.origin;
+  // const backendUrl =
+  //   window.location.hostname === 'localhost' ||
+  //   window.location.hostname === '127.0.0.1'
+  //     ? 'http://127.0.0.1:8000'
+  //     : window.location.origin;
   return (
     <section className="mx-5 mt-24">
       <div className="flex items-center flex-col">
