@@ -1,16 +1,18 @@
-import type { CreatePostType, getPostType } from '../types';
+import type { CreatePostType, GetPostType } from '../types';
 import { api } from './api';
 
 export const addPost = async (postData: CreatePostType) => {
   const formData = new FormData();
 
   formData.append('title', postData.title);
-  formData.append('author', postData.author);
+  formData.append('author_name', postData.author_name);
   formData.append('content', postData.content);
 
   if (postData.image instanceof File) {
     formData.append('image', postData.image);
   }
+  console.log(111, ...formData);
+
   const { data } = await api.post<CreatePostType>('api/topics/', formData);
 
   console.log(data); // <<<<<<<<<<<<<<====================== temp
@@ -19,7 +21,7 @@ export const addPost = async (postData: CreatePostType) => {
 };
 
 export const getPosts = async () => {
-  const { data } = await api.get<getPostType[]>('api/topics/');
+  const { data } = await api.get<GetPostType[]>('api/topics/');
 
   return data;
 };
