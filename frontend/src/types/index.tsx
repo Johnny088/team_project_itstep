@@ -1,12 +1,12 @@
 export interface CreatePostType {
   title: string;
-  author: string;
+  author_name: string;
   content: string;
   image: File | string | null;
 }
 
-export interface getPostType extends CreatePostType {
+export interface GetPostType extends CreatePostType {
   id: number;
-  createdAt: string;
+  created_at: Date;
   comments: Comment[];
 }

@@ -16,7 +16,7 @@ export const CreatePostForm = ({
   const formAction = (formData: FormData) => {
     const payload: CreatePostType = {
       title: formData.get('title') as string,
-      author: formData.get('author') as string,
+      author_name: formData.get('author') as string,
       //   image: formData.get('image') as string,
       image: selectedFile,
       content: formData.get('content') as string,
@@ -65,7 +65,6 @@ export const CreatePostForm = ({
           className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-300"
         />
       </div>
-      <input />
 
       <div>
         <label className="block text-sm font-medium mb-1">Content</label>

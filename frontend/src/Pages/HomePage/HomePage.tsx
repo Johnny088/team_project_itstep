@@ -27,7 +27,7 @@ export const HomePage = () => {
   //     ? 'http://127.0.0.1:8000'
   //     : window.location.origin;
   return (
-    <section className="mx-5 mt-24">
+    <section className="mx-9 mt-24">
       <div className="flex items-center flex-col">
         <h1 className=" text-amber-300 mb-16">Welcome to the home page</h1>
 
@@ -48,22 +48,28 @@ export const HomePage = () => {
         )}
         <ul>
           {posts?.map((post) => (
-            <li key={post.id}>
-              <div>
-                <img
-                  className="w-3xs h-80"
-                  src={
-                    typeof post.image === 'string' &&
-                    post.image.startsWith('http')
-                      ? post.image
-                      : `http://127.0.0.1:8000${post.image}`
-                  }
-                  alt="photo"
-                />
-                <p>{post.author}</p>
-                <p>{post.title}</p>
-                <p>{post.content}</p>
-                <p>{post.createdAt}</p>
+            <li key={post.id} className="mb-16">
+              <div className="flex">
+                <div className="me-16">
+                  <p className="">{post.author_name}</p>
+                  <img
+                    className="w-3xs h-80"
+                    src={
+                      typeof post.image === 'string' &&
+                      post.image.startsWith('http')
+                        ? post.image
+                        : `http://127.0.0.1:8000${post.image}`
+                    }
+                    alt="cover"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <div className="flex  mb-7">
+                    <p className="me-9">{`${post.title}`}</p>
+                    <p>{new Date(post.created_at).toLocaleString()}</p>
+                  </div>
+                  <p>{post.content}</p>
+                </div>
               </div>
             </li>
           ))}
