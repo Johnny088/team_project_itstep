@@ -5,7 +5,6 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-
 from django.contrib.auth.models import User
 
 from .models import Topic, Comment
@@ -20,6 +19,13 @@ class TopicListCreateView(generics.ListCreateAPIView):
     queryset = Topic.objects.all().order_by("-updated_at")
     serializer_class = TopicSerializer
 
+    def perform_create(self, serializer):
+        user = self.request.user
+        if user.is_authenticated:
+            serializer.save(author=user, author_name=user.username)
+        else:
+            serializer.save(author=None)
+
 
 class TopicDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Topic.objects.all()
@@ -31,7 +37,11 @@ class CommentListCreateView(generics.ListCreateAPIView):
     serializer_class = CommentSerializer
 
     def perform_create(self, serializer):
-        comment = serializer.save()
+        user = self.request.user
+        if user.is_authenticated:
+            comment = serializer.save(author=user, author_name=user.username)
+        else:
+            comment = serializer.save(author=None)
         comment.topic.save()
 
 
@@ -50,6 +60,7 @@ class MeView(APIView):
             "username": request.user.username,
             "email": request.user.email,
         })
+
 
 class LogoutView(APIView):
     permission_classes = [IsAuthenticated]
