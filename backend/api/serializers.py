@@ -5,8 +5,8 @@ from django.contrib.auth.models import User
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ["id", "topic", "content", "author_name", "image", "created_at"]
-        read_only_fields = ["id", "created_at"]
+        fields = ["id", "topic", "content", "author", "author_name", "image", "created_at"]
+        read_only_fields = ["id", "author", "created_at"]
 
 
 class TopicSerializer(serializers.ModelSerializer):
@@ -18,13 +18,14 @@ class TopicSerializer(serializers.ModelSerializer):
             "id",
             "title",
             "content",
+            "author",
             "author_name",
             "image",
             "created_at",
             "updated_at",
             "comments",
         ]
-        read_only_fields = ["id", "created_at", "updated_at"]
+        read_only_fields = ["id", "author", "created_at", "updated_at"]
 
 
 class RegisterSerializer(serializers.ModelSerializer):
