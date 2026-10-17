@@ -51,7 +51,7 @@ export const HomePage = () => {
             <li key={post.id} className="mb-16">
               <div className="flex">
                 <div className="me-16">
-                  <p className="">{post.author_name}</p>
+                  <p className="mb-6">{post.author_name}</p>
                   <img
                     className="w-3xs h-80"
                     src={

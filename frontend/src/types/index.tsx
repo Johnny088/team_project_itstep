@@ -1,6 +1,6 @@
 export interface CreatePostType {
   title: string;
-  author_name: string;
+  author_name: string | null;
   content: string;
   image: File | string | null;
 }
