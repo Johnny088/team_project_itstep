@@ -49,16 +49,16 @@ class RegisterSerializer(serializers.ModelSerializer):
 
 class LoginSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
-        # Отримуємо значення, яке користувач ввів у полі "username" (або "login")
+        
         identifier = attrs.get("username")
         password = attrs.get("password")
 
         if identifier and password:
-            # Перевіряємо, чи введено email (містить '@')
+           
             if "@" in identifier:
                 try:
                     user_obj = User.objects.get(email__iexact=identifier)
-                    # Підставляємо реальний username для подальшої валідації JWT
+                   
                     attrs["username"] = user_obj.username
                 except User.DoesNotExist:
                     raise serializers.ValidationError({"detail": "Користувача з такою поштою не знайдено."})
