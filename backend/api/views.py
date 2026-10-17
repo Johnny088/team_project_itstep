@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .permissions import IsAuthorOrAdminOrReadOnly
+from .permissions import IsAuthorOrAdminOrReadOnly, get_role
 from .pagination import TopicPagination
 
 from django.contrib.auth.models import User
@@ -73,6 +73,7 @@ class MeView(APIView):
             "id": request.user.id,
             "username": request.user.username,
             "email": request.user.email,
+            "role": get_role(request.user)
         })
 
 
