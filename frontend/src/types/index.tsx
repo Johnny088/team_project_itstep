@@ -23,3 +23,11 @@ export interface User {
   username: string;
   email: string;
 }
+
+export interface AuthDataType {
+  usernameOrEmail?: string;
+  email?: string;
+  username?: string;
+  password: string;
+  confirmPassword?: string;
+}

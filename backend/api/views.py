@@ -17,6 +17,9 @@ from .serializers import (
     RegisterSerializer,
 )
 
+from rest_framework_simplejwt.views import TokenObtainPairView
+from .serializers import LoginSerializer
+
 
 class TopicListCreateView(generics.ListCreateAPIView):
     queryset = Topic.objects.all().order_by("-updated_at")
@@ -92,3 +95,6 @@ class LogoutView(APIView):
             {"detail": "Successfully logged out."},
             status=200,
         )
+
+class LoginView(TokenObtainPairView):
+    serializer_class = LoginSerializer

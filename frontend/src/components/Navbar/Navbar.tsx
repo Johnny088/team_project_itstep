@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export const Navbar = () => {
   return (
-    <header className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950">
+    <header className="border-b border-gray-200 bg-white dark:border-gray-800 dark:bg-gray-950 mb-16">
       <div className="container mx-auto flex h-16 items-center justify-between px-4">
         <Link
           to="/"
@@ -31,7 +31,7 @@ export const Navbar = () => {
             </li>
             <li>
               <Link
-                to="/logout"
+                to="/auth/logout"
                 className="transition-colors hover:text-red-600 dark:hover:text-red-400"
               >
                 Logout

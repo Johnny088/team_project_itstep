@@ -11,7 +11,11 @@ from .views import (
     RegisterView,
     MeView,
     LogoutView,
+<<<<<<< HEAD
     CommentDeleteView,
+=======
+    LoginView
+>>>>>>> 925ce0b (add login&register forms)
 )
 
 urlpatterns = [
@@ -25,7 +29,7 @@ urlpatterns = [
 
     # Authentication
     path("auth/register/", RegisterView.as_view(), name="register"),
-    path("auth/login/", TokenObtainPairView.as_view(), name="token-obtain-pair"),
+    path("auth/login/", LoginView.as_view(), name="token-obtain-pair"),
     path("auth/refresh/", TokenRefreshView.as_view(), name="token-refresh"),
     path("auth/me/", MeView.as_view(), name="me"),
     path("auth/logout/", LogoutView.as_view(), name="logout"),
