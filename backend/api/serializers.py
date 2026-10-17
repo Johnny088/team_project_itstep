@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .models import Topic, Comment
 from django.contrib.auth.models import User
 
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework import serializers
+
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
@@ -42,3 +45,22 @@ class RegisterSerializer(serializers.ModelSerializer):
             password=validated_data["password"],
         )
         return user
+
+
+class LoginSerializer(TokenObtainPairSerializer):
+    def validate(self, attrs):
+        
+        identifier = attrs.get("username")
+        password = attrs.get("password")
+
+        if identifier and password:
+           
+            if "@" in identifier:
+                try:
+                    user_obj = User.objects.get(email__iexact=identifier)
+                   
+                    attrs["username"] = user_obj.username
+                except User.DoesNotExist:
+                    raise serializers.ValidationError({"detail": "Користувача з такою поштою не знайдено."})
+
+        return super().validate(attrs)
