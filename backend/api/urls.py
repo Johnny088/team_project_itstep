@@ -11,11 +11,8 @@ from .views import (
     RegisterView,
     MeView,
     LogoutView,
-<<<<<<< HEAD
     CommentDeleteView,
-=======
     LoginView
->>>>>>> 925ce0b (add login&register forms)
 )
 
 urlpatterns = [
