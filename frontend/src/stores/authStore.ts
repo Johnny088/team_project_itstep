@@ -28,6 +28,7 @@ export const selectIsAuth = (state: AuthStore) => state.isAuth;
 export const selectUser = (state: AuthStore) => state.user;
 export const selectSetUser = (state: AuthStore) => state.setUser;
 export const selectRefresh = (state: AuthStore) => state.refresh;
+export const selectSetRefresh = (state: AuthStore) => state.setRefresh;
 export const selectAccess = (state: AuthStore) => state.access;
 export const selectSetAccess = (state: AuthStore) => state.setAccess;
 export const selectClearAuth = (state: AuthStore) => state.clearAuth;

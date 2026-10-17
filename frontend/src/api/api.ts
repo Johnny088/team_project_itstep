@@ -10,8 +10,8 @@ export const api = axios.create({
 });
 
 api.interceptors.request.use(
-  (config) => {
-    const token = useAuthStore.getState().access;
+  async (config) => {
+    const token = await useAuthStore.getState().access;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
