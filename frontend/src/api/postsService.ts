@@ -21,7 +21,7 @@ export const addPost = async (postData: CreatePostType) => {
 };
 
 export const getPosts = async () => {
-  const { data } = await api.get<GetPostType[]>('api/topics/');
+  const { data } = await api.get<{ results: GetPostType[] }>('api/topics/');
 
-  return data;
+  return data.results;
 };

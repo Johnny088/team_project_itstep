@@ -5,6 +5,9 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .permissions import IsAuthorOrAdminOrReadOnly
+from .pagination import TopicPagination
+
 from django.contrib.auth.models import User
 
 from .models import Topic, Comment
@@ -18,6 +21,7 @@ from .serializers import (
 class TopicListCreateView(generics.ListCreateAPIView):
     queryset = Topic.objects.all().order_by("-updated_at")
     serializer_class = TopicSerializer
+    pagination_class = TopicPagination
 
     def perform_create(self, serializer):
         user = self.request.user
@@ -30,6 +34,7 @@ class TopicListCreateView(generics.ListCreateAPIView):
 class TopicDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Topic.objects.all()
     serializer_class = TopicSerializer
+    permission_classes = [IsAuthorOrAdminOrReadOnly]
 
 
 class CommentListCreateView(generics.ListCreateAPIView):
@@ -43,6 +48,12 @@ class CommentListCreateView(generics.ListCreateAPIView):
         else:
             comment = serializer.save(author=None)
         comment.topic.save()
+
+
+class CommentDeleteView(generics.DestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [IsAuthorOrAdminOrReadOnly]
 
 
 class RegisterView(generics.CreateAPIView):
