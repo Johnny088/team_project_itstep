@@ -11,10 +11,8 @@ from .views import (
     RegisterView,
     MeView,
     LogoutView,
+    CommentDeleteView,
 )
-
-
-
 
 urlpatterns = [
     # Topics
@@ -23,6 +21,7 @@ urlpatterns = [
 
     # Comments
     path("comments/", CommentListCreateView.as_view(), name="comment-list-create"),
+    path("comments/<int:pk>/", CommentDeleteView.as_view(), name="comment-delete"),
 
     # Authentication
     path("auth/register/", RegisterView.as_view(), name="register"),
