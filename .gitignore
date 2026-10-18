@@ -57,4 +57,7 @@ dist-ssr
 *.sln
 *.sw?
 
-.env*
+### Файлы окружения и секреты ###
+.env
+.env.*
+!.env.example
