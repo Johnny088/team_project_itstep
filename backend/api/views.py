@@ -107,16 +107,29 @@ class LoginView(TokenObtainPairView):
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except TokenError as error:
+            raise InvalidToken(error.args[0])
 
-        if response.status_code == 200:
-            set_auth_cookies(
-                response,
-                access=response.data["access"],
-                refresh=response.data["refresh"],
-            )
-            response.data = {"detail": "Successfully logged in."}
+        tokens = serializer.validated_data
+        user = serializer.user
 
+        response = Response(
+            {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "role": get_role(user),
+            },
+            status=200,
+        )
+        set_auth_cookies(
+            response,
+            access=tokens["access"],
+            refresh=tokens["refresh"],
+        )
         return response
 
 
