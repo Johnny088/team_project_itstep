@@ -32,3 +32,10 @@ export interface AuthDataType {
   password: string;
   confirmPassword?: string;
 }
+
+export interface CreateCommentType {
+  topic: number;
+  content: string;
+  author_name?: string;
+  image?: File | null;
+}
