@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { CreatePostType } from '../../types';
+import { selectUser, useAuthStore } from '../../stores/authStore';
 
 interface CreatePostFormProps {
   onSubmit: (data: CreatePostType) => void;
@@ -13,11 +14,14 @@ export const CreatePostForm = ({
   isError,
 }: CreatePostFormProps) => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+
+  const author = useAuthStore(selectUser);
+
   const formAction = (formData: FormData) => {
     const payload: CreatePostType = {
       title: formData.get('title') as string,
-      author_name: formData.get('author') as string,
-      //   image: formData.get('image') as string,
+      author_name: author ? author.username : null,
+
       image: selectedFile,
       content: formData.get('content') as string,
     };
@@ -26,7 +30,7 @@ export const CreatePostForm = ({
   };
 
   return (
-    <form action={formAction} className="space-y-4">
+    <form action={formAction} className="space-y-4 mb-16">
       {isError && (
         <div className="bg-red-500/20 text-red-400 p-3 rounded-lg text-sm">
           Failed to create post.
@@ -43,7 +47,7 @@ export const CreatePostForm = ({
         />
       </div>
 
-      <div>
+      {/* <div>
         <label className="block text-sm font-medium mb-1">Author</label>
         <input
           type="text"
@@ -51,7 +55,7 @@ export const CreatePostForm = ({
           required
           className="w-full bg-gray-700 border border-gray-600 rounded-lg p-2.5 text-white focus:outline-none focus:ring-2 focus:ring-amber-300"
         />
-      </div>
+      </div> */}
 
       <div>
         <label className="block text-sm font-medium mb-1">Image URL</label>

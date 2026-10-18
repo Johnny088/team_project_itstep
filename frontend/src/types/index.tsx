@@ -1,6 +1,6 @@
 export interface CreatePostType {
   title: string;
-  author_name: string;
+  author_name: string | null;
   content: string;
   image: File | string | null;
 }
@@ -22,6 +22,7 @@ export interface User {
   id: number;
   username: string;
   email: string;
+  role: string;
 }
 
 export interface AuthDataType {
@@ -30,4 +31,11 @@ export interface AuthDataType {
   username?: string;
   password: string;
   confirmPassword?: string;
+}
+
+export interface CreateCommentType {
+  topic: number;
+  content: string;
+  author_name?: string;
+  image?: File | null;
 }

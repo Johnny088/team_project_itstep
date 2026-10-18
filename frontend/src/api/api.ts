@@ -2,16 +2,13 @@ import axios from 'axios';
 import { useAuthStore } from '../stores/authStore';
 
 export const api = axios.create({
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000',
   withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-  },
 });
 
 api.interceptors.request.use(
-  async (config) => {
-    const token = await useAuthStore.getState().access;
+  (config) => {
+    const token = useAuthStore.getState().access;
 
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
