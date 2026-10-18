@@ -1,12 +1,21 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addPost, getPosts, addComment } from '../../api/postsService';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { CreatePostForm } from '../../components/CreatePostForm/CreatePostForm';
-import type { CreateCommentType, CreatePostType } from '../../types';
+import type { CreateCommentType, CreatePostType, User } from '../../types';
+import {
+  selectClearAuth,
+  selectSetUser,
+  useAuthStore,
+} from '../../stores/authStore';
+import { api } from '../../api/api';
+import { getUser } from '../../api/authService';
 
 export const HomePage = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const queryClient = useQueryClient();
+  const setUser = useAuthStore(selectSetUser);
+  const clearAuth = useAuthStore(selectClearAuth);
 
   const [activeCommentPostId, setActiveCommentPostId] = useState<number | null>(
     null
@@ -49,15 +58,14 @@ export const HomePage = () => {
     setCommentContent('');
     setActiveCommentPostId(null);
   };
-  // const backendUrl =
-  //   window.location.hostname === 'localhost' ||
-  //   window.location.hostname === '127.0.0.1'
-  //     ? 'http://127.0.0.1:8000'
-  //     : window.location.origin;
+
+  useEffect(() => {
+    getUser();
+  }, []);
   return (
     <section className="mx-9 mt-24">
       <div className="flex items-center flex-col">
-        <h1 className=" text-amber-300 mb-16">Welcome to the home page</h1>
+        <h1 className=" text-amber-300 mb-16">Forum main page</h1>
 
         <button
           className="bg-white text-black p-2 rounded-xl cursor-pointer hover:bg-gray-400 duration-300 mb-16"
