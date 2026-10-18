@@ -86,7 +86,7 @@ export const HomePage = () => {
                       typeof post.image === 'string' &&
                       post.image.startsWith('http')
                         ? post.image
-                        : `http://127.0.0.1:8000${post.image}`
+                        : `${import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000'}${post.image}`
                     }
                     alt="cover"
                   />
