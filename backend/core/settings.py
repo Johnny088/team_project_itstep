@@ -142,6 +142,7 @@ MAILERS = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",  # Default Vite server
     "http://localhost:3000",  # Default Create React App server
+    "https://team-project-itstep.onrender.com",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
