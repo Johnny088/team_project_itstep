@@ -2,20 +2,13 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addPost, getPosts, addComment } from '../../api/postsService';
 import { useEffect, useState } from 'react';
 import { CreatePostForm } from '../../components/CreatePostForm/CreatePostForm';
-import type { CreateCommentType, CreatePostType, User } from '../../types';
-import {
-  selectClearAuth,
-  selectSetUser,
-  useAuthStore,
-} from '../../stores/authStore';
-import { api } from '../../api/api';
+import type { CreateCommentType, CreatePostType } from '../../types';
+
 import { getUser } from '../../api/authService';
 
 export const HomePage = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const queryClient = useQueryClient();
-  const setUser = useAuthStore(selectSetUser);
-  const clearAuth = useAuthStore(selectClearAuth);
 
   const [activeCommentPostId, setActiveCommentPostId] = useState<number | null>(
     null
